@@ -1,4 +1,221 @@
 # 이대환 (202530119) 
+# 2025-11-13 강의
+
+## toString() 메소드, 객체를 문자열로 변환
+
+각 클래스는 toString()을 오버라이딩하여 자신만의 문자열 리턴 가능
+원형 : public String toString()
+
+## 객체 비교(==)와 equals() 메소드
+== 연산자 : 객체 레퍼런스 비교
+
+  
+  ```java
+  Point a == new Point(2,3);
+  Point b == new Point(2,3);
+  Point c = a;
+
+  if(a==b) // false
+    System.out.printf("a==b");
+  if(a==c) //true
+    System.out.printf("a==c")
+boolean equlas(Object obj)
+```
+```java
+실행결과 : a==c
+```
+두 객체의 내용물 비교
+객체의 내용을 비교하기 위해 클래스의 멤버로 작성
+
+
+## Wrapper 클래스
+Wrapper 클래스 : 자바의 기본 타입을 클래스화 한 8개 클래스를 통칭
+  기본타입       byte short int long char float double boolean
+  Wrapper 클래스 Byte Short Interger Long Character Float Double Boolean
+
+## Wrapper 객체 생성
+integer i = Integer.valueOf(10);
+Character c = Character.valueOf('c')
+Double f = Double.valueOf(3.14);
+Boolean.b = Boolean.valueOf(true);
+
+용도 : 객체만 사용할 수 있는 컬렉션 등에 기본 타입의 값을 사용하기 위해 Wrapper 객체로 만들어 사용
+
+## 박싱과 언박싱
+
+### 박싱(boxing) : 기본 타입의 값을 Wrapper 객체로 변환하는 것.
+### 언박싱(unboxing) : Wrapper 객체에 들어 있는 기본 타입의 값을 빼내는 것. 박싱의 반대.
+
+### 자동 박싱과 자동 언박싱 : JDK 1.5 부터 박싱과 언박싱은 자동으로 이주어지도록 컴파일됨.
+
+```java
+integer ten = 10; // 자동 박싱.integer.ten = integer.valueOf(10);로 자동 처리
+int n = ten; // 자동 언박싱. int n = ten.intValue()로 자동 처리 
+```
+
+## String의 생성과 특징
+- String 클래스는 문자열을 나타냄
+- 스트링 리터럴(문자열 리터럴)은 String 객체로 처리됨
+- 스트링 객체의 생성 사례
+
+```java
+String str1 = "abcd"
+
+char data[] = {'a','b','c','d'};
+String str2 = new.String(data);
+String st3 = new String("abcd"); //str2와 str3는 모두 "abcd" 스트링
+```
+
+## 스트링 리터럴과 new String()
+### 스트링 리터럴
+- 자바 가상 기계 내부에서 리터럴 테이블에 저장되고 관리됨
+- 응용프로그램에서 고융됨
+- 스트링 리터럴 사례: String s = "Hello";
+
+### new String()으로 생성된 스트링
+- 스트링 객체는 힙에 생성
+- 스트링은 공유되지 않음
+
+
+## 스트링 객체의 주요 특징
+- 스트링 객체는 수정 불가능
+- 리터럴 스트링이든 new String()을 생성했든 객체의 문자일 수정 불가능
+
+```java 
+String s = new String("Hello"); //s의 스트링은 수정 불가능
+String t = s.concat("Java"); //스트링 S에 "Java"를 덧붙인 스트링 리턴
+```
+
+## String 활용
+
+- 스트링 비교, equals()와 compareTo()
+- → 스트링 비교예 == 연산자 절대 사용 금지
+- equals() : 스트링이 가으면 true, 아니면 false 리턴
+```java
+ String java = "Java";
+ if(java.equals("Java")); //true
+ ```
+
+- int compareTo(String anotherString)
+- 문자열이 같으면 0 리턴
+- 이 문자열이 anotherString 보다 먼저 나오면 음수 리턴
+- 이 문자열이 anotherString 보다 나중에 나오면 양수 리턴
+
+```java
+  String java= "Java";
+  String cpp = "C++";
+  int res = java.compareTo(cpp);
+  if(res == 0) System.out.println("the same");
+  else if(res < 0) System.out.println(java + "<" + cpp);
+  else System.out.println(java + ">" + cpp);
+```
+```java
+결과값 : Java > C++
+```
+
+## 자바의 GUI(Graohical User Interface)
+- GUI : 사용자가 편리하게 입출력 할 수 있도록 그래픽으로 화면을 구성하고, 마우스나 키보드로 입력 받을 수 있도록 지원하는 사용자 인터페이스
+- 자바 언어에서 GUI 응용 프로그램 작성 : AWT 와 Swing 패키지에 강력한 GUI 컴포넌트 제공.
+
+### [ AWT(Abstract Womdowing Toolkit) 패키지 ]
+- 자바가 처음 나왔을 때부터 배포된 GUI 패키지, 최근에는 거의 사용하지 않음
+- AWT 컴포넌트는 중량 컴포넌트(heavy weight component)
+- AWT 컴포넌트의 그리기는 운영체제에 의해 이뤄지며, 운영체제에 의 자원을 많이 소모하고 부담을 줌
+- 운영체제가 직접 그리기 때문에 속도는 빠름
+
+### [Swing 패키지]
+- AWT 기술을 기반으로 작성된 자바 라이브러리
+- 모든 AWI 기능 + 추가된 풍부하고 화려한 고급 컴포넌트
+- AWT 컴포넌트를 모두 스윙으로 제작성
+- AWT 컴포넌트 이름 앞에 J자를 덧붙임
+- 순수 자바 언어로 구현
+- 스윙 컴포넌트는 경량 컴포넌트(light weight component)
+- 스윙 컴포넌트는 운영체제의 도움을 받지 않고, 직접 그리기 때문에 운영체제에 부담주지 않음
+- 현재 자바의 GUO 표준으로 사용됨
+
+## 컨테이너와 컴포넌트
+
+### 컨테이너
+- 다른 컴포넌트를 포함할 수 있는 GUI 컴포넌트 : java.awt.Container를 상속받음
+- 다른 컨테이너에 포함 될 수 있음
+- AWT 컨테이너 : Panel, Frame, Applet, Dialog, Window
+- Swing 컨테이너 : JPanel JFrame, JApplet, JDialog, JWindow
+
+### 컴포넌트
+- 컨테이너에 포함되어야 화면에 출력 될 수 잇는 GUI 객체
+- 다른 컴포넌트를 포함할 수 없는 순수 컴포넌트
+- 모든 GUI 컴포넌트가 상속받는 클래스 : java.awt.Component
+- 스윙 컴포넌트가 상속받는 클래스 : javax.swing.Jcomponent
+
+### 최상위 컨테이너
+- 다른 컨테이너에 포함되지 않고도 화면에 출력되며, 독립적으로 존재 가능한 컨테이너
+- 스스로 화면에 자신을 출력하는 컨테이너 : JFrame, JDialog, JApplet
+
+## 컨테이너와 컴포넌트의 포함관계
+- 최상위 컨테이너를 바닥에 깔고, 그 위에 컨테이너를 놓고, 다시 컴포넌트를 쌓아가는 방식, 즉 레고 블록을 쌓는 듯이 GUI 프로그램을 작성한다.
+
+## Swing GUI 프로그램 만들기
+### 스윙 GUI 프로그램을 만드는 과정
+- 스윙 프레임 만들기
+- main() 메소드 작성
+- 프레임에 스윙 컴포넌트 붙이기
+
+```java
+import java.awt.*; // 그래픽 처리를 위한 클래스들의 경로명
+import java.awt.event.*; // AWT 이벤트 사용을 위한 경로명
+import javax.swing.*; // 스윙 컴포넌트 클래스들의 경로명
+import javax.swing.event.*; // 스윙 이벤트를 위한 경로명
+```
+## Swing 프레임
+### 스윙프레임 
+- 모든 스윙 컴포넌트를 담는 최상위 컨테이너
+- JFrame을 상속받아 구현
+- 컴포넌트들은 화면에 보이려면 스윙 프레임에 부착되어야 함
+- 프레임을 닫으면 프레임에 부착된 모든 컴포넌트가 보이지 않게 됨
+
+### 스윙프레임(JFrame) 기본 구성
+- 프레임 : 스윙 프로그램의 기본 툴
+- 메뉴바 : 메뉴들이 부착되는 공간
+- 컨텐트팬 : GUI 컴포넌트를 부착하는 공간
+
+## 프레임 만들기, JFrame 클래스 상속
+### 스윙 프레임
+- JFrame 클래스를 상속받은 클래스 작성
+- 프레임의 크기 반드시 지정: setSize() 호출
+- 프레임을 화면에 출력하는 코드 반드시 필요 : setVisible(true) 호출
+
+## Swing 응용프로그램에서 main()의 기능과 위치
+- 스윙 응용프로그램에서 main()의 기능 최소화 바람직
+- 스윙 응용프로그램이 실행되는 시작점으로서의 기능만
+- 스윙 프레임을 생성하는 정도의 코드로 최소화
+  ```java
+    public statuc void main(String[] args) {
+      MyFrame frame = new MyFrame(); // 스윙프레임 생성
+    }
+    ```
+## 프레임에 컴포넌트 붙이기
+
+### 타이틀 달기
+- super()나 setTitle()이용
+```java
+MyFrame() { //생성자
+  super("타이틀 문자열")
+}
+
+MyFrame() {//생성자
+  setTitle("타이틀 문자열")
+}
+```
+
+### 컨텐트 팬에 컴포넌트 달기
+- 컨텐트 팬이란? 스윙 컴포넌트들이 부착되는 공간
+- 컨텐트팬 알아내기 : 스윙 프레임에 붙은 디폴트 컨텐트팬 알아내기
+- 컨텐트팬에 컴포넌트 붙이기
+- 컨텐트팬 변경
+
+
+
+
 # 2025-11-06 강의
 ## 자바 모듈과 패키지 개념 및 활용
 
@@ -19,10 +236,8 @@
 
 📁 예시:
 ```
-
 com.company.ui.Tool
 com.company.db.Tool
-
 ```
 → 이름은 같지만, 서로 다른 패키지이므로 충돌하지 않음
 
