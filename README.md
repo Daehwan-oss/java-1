@@ -1,4 +1,165 @@
-# 이대환 (202530119) 
+# 이대환 (202530119)
+# 2025-11-20 강의
+
+예제 8-2
+
+## SWING 응용프로그램의 종료
+  응용프로그램 내에서 스스로 종료하는 방법
+    -언제 어디서나 무조건 종료 
+```java
+  System.exit(0);
+```
+
+  프레임의 오른쪽 상단의 종료버튼(X) 이 클릭되면 어떤일이 일어나는가 ?
+  - 프레임 종료, 프레임 윈도우를 닫음 : 프레임이 화면에서 보이지 않게 됨
+  - 프레임이 보이지 않게 되지만 응용프로그램이 종료한 것은 아님
+  키보드나 마우스 입력을 받지 못함
+  - 다시 setVisible(true) 를 호출하면, 보이게 되고 이전처럼 작동함
+
+  ### 프레임 종료 버튼이 클릭될 때 프레임과 함께 프로그램을 종료 시키는 방법
+ ```java
+  frame.setDefaultCloseOperation(JFRameEXIT_ON_CLOSE);
+ ```
+
+## 컨테이너와 배치, 배치관리자 개념
+### 컨테이너의 배치관리자
+- 컨테이너마다 하나의 배치관리자 존재
+- 컨테이너에 부착되는 컴포넌트의 위치와 크기 결정
+
+## 배치 관리자 대표 유형 4가지
+### FlowLayout 배치관리자
+  - 컴포넌트가 삽입되는 순서대로 왼쪽에서 오른쪽으로 배치
+  - 배치할 공간이 없으면 아래로 내려와서 반복한다.
+
+### BorderLayout 배치관리자
+- 컨테이너의 공간을 등(EAST), 서(WEST), 남(SOUTH), 북(NORTH), 중앙(CENTER)의 5개 영역으로 나눔
+- 5개 영역 중 응용 프로그램에서 지정한 영역에 컴포넌트 배치
+
+### GridLayout
+- 컨테이너공간을 응용프로그램에서 설정한 동일한 크기의 2차원 그리드로 나눔
+- 컴포넌트가 들어오는 순서대로 좌->우, 위->아래 순서대로 배치
+
+### CardLayout
+- 컨테이너의 공간에 카드를 쌓아 놓은 듯이 컴포넌트를 포개어 배치한다.
+
+
+## 컨테이너에 새로운 배치 관리자 설정
+#### 컨테이너에 새로운 배치 관리자 설정
+```java
+  setLayout(LayoutManager lm) 메소드 호출 : lm을 새로운 배치관리자로 설정
+```
+
+### 사례 
+#### Jpanel 컨테이너에 BorderLayout 배치관리자를 설정하는 예
+  ```java
+  JPanel p = new JPanel();
+  p.setLayout(new BorderLayout()); //JPanel에 BorderLayout 설정
+  ```
+
+#### 컨텐트팬의 배치관리자를 FlowLayout 배치관리자로 설정
+  ```java
+  Container c = frame.getConerntPane(); //프레임의 컨텐트팬 알아내기
+
+  c.setLayout(new FlowLayout()); // 컨텐트팬에 FLowLayout 설정
+  ```
+#### 오류 
+  ```java
+  c.setLayout(FlowLayout); //오류
+  ```
+<hr>
+
+## 배치관리자 
+
+### FlowLayout 배치 관리자
+- 컴포넌트를 왼쪽에서 오른쪽으로 배치하고, 오른쪽 공간이 없으면 아래로 내려와서 배치
+
+#### 생성자
+  ```java
+  container.setLayout(new FlowLayout());
+  container.add(new JButton("add"));
+  container.add(new JButton("sub"));
+  container.add(new JButton("mul"));
+  container.add(new JButton("div"));
+  container.add(new JButton("Calculate"));
+  ```
+
+### BorderLayout 배치관리자
+- 컨테이너 공간을 동, 서, 남, 북, 중앙의 5개 영역으로 분할하여 배치
+
+#### 생성자 
+  ```java
+  BorderLayout()
+  BorderLayout(int hGap, int vGap)
+  - hGape : 좌우 두 컴포넌트 사이의 수평 간격, 픽셀 단위. 디폴트는 0
+  - vGap  : 상하 두 컴포넌트 사이의 수직 간격, 픽셀 단위. 디폴트는 0
+  ```
+  
+
+### GridLayout 배치관리자
+- 컨테이너 공간을 그리드 모양으로 분할하여 각 셀에 하나씩 컴포넌트를 배치하는 방법.
+
+#### 생성자
+  ```java
+  GridLayout()
+  GridLayout(int rows, int cols)
+  GridLayout(int rows, int cols, int hGap, int vGap)
+  - rows : 그리드의 행 수, 디폴트는 1
+  - cols : 그리드의 열 수, 디폴트는 1
+  - hGape : 좌우 두 컴포넌트 사이의 수평 간격, 픽셀 단위. 디폴트는 0
+  - vGap  : 상하 두 컴포넌트 사이의 수직 간격, 픽셀 단위. 디폴트는 0
+  ```
+
+### 배치관리자 없는 컨테이너
+- 컴포넌트의 크기나 위치를 개발자 임의로 결정하고자 하는 경우
+- 게임 프로그램과 가이 시간이나 마우스/키보드의 입력에 따라 컴포넌트들의 위치와 크기가 수시로 변하는 경우
+- 여러 컴포넌트들이 서로 겹치는 효과를 연출하고자 하는 경우
+
+## 컴포넌트의 절대 위치와 크기 설정
+- 배치 관리자가 없는 컨테이너에 컴포넌트를 삽입 할 때
+  - 프로그램에서 컴포넌트의 절대 크기와 위치 설정
+  - 컴포넌트들이 서로 겹치게 할 수 있음
+
+### 컴포넌트의 크기와 위치 설정 메소드
+  ```java
+  void setSize(int width, int height) // 컴포넌트 크기 설정
+  void setLocation(int x, int y) // 컴포넌트 위치 설정
+  void setBounds(int x, int y, int width, int height) // 위치와 크기 동시 설정
+  ```
+<br>
+
+### 예) 버튼을 100x40 크기로 하고, JPanel의 (50,50) 위치에 배치
+  ```java
+  JPanel p = new Jpanel();
+  p.setLayout(null); //패널 p의 배치 관리자 제거
+  JButton clickButton = new JButton("Click");
+  clickButton.setSize(100, 40);   // 버튼의 크기를 100x40 으로 지정
+  clickButton.setLocation(50, 50); // 버튼의 위치를 (50, 50 ) 으로 지정
+  p.add(clickButton); //패널 내의 (50, 50) 위치에 100x40 크기의 버튼 출력
+  ```
+
+
+
+## 자바의 이벤트 처리
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+
 # 2025-11-13 강의
 
 ## toString() 메소드, 객체를 문자열로 변환
