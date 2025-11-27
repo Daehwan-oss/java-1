@@ -1,4 +1,30 @@
 # 이대환 (202530119)
+# 2025-11-27 강의
+
+## 이벤트 리스너 작성 과정 사례
+1. 이벤트와 이벤트 리스너 선택
+- 버튼 클릭을 처리하고자 하는 경우
+  - 이벤트 : Action 이벤트, 이벤트 릿너 : ActionListener
+
+2. 이벤트 리스너 클래스 작성 : Actionlistener 인터페이스 구현
+
+```java
+class My ActionListener implements ActionListeer (
+  public void actionPerfomed(ActionEvente ) {
+    JButton b = (JButton)e.getSource();
+    if(b.getText().equals("Action"))
+    b.setText("액션")
+    else
+      b.setText("Action");
+  }
+)
+```
+### 이벤트 리스너 등록
+- 이벤트를 받아 처리하고자 하는 컴포넌트에 이벤트 리스너 등록
+- component.addXXXListener(listener)
+  - xxx: 이벤트 명, listener : 이벤트 리스너 객체
+
+
 # 2025-11-20 강의
 
 예제 8-2
@@ -140,13 +166,6 @@
 
 
 ## 자바의 이벤트 처리
-
-
-
-
-
-
-
 
 
 
